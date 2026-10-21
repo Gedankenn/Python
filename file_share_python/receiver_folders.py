@@ -77,7 +77,7 @@ client_socket.close()
 # close the server socket
 s.close()
 
-with zipfile.ZipFile(filename, 'r') as file:
+with ZipFile(filename, 'r') as file:
     print('Extracting all files...')
     file.extractall()
     print('Done!') # check your directory of zip file to see the extracted files
