@@ -22,15 +22,17 @@ def send_file(filename, host, port):
 
     #Create a zip file
     with ZipFile('send.zip', 'w') as zipObj:
-    # Iterate over all the files in directory
-    for folderName, subfolders, filenames in os.walk(dirName):
-        for filename in filenames:
-           #create complete filepath of file in directory
-           filePath = os.path.join(folderName, filename)
-           # Add file to zip
-           zipObj.write(filePath, basename(filePath))
+        # Iterate over all the files in directory
+        dirName = filename
+        for folderName, subfolders, filenames in os.walk(dirName):
+            for filename_zip in filenames:
+                #create complete filepath of file in directory
+                filePath = os.path.join(folderName, filename_zip)
+                # Add file to zip
+                zipObj.write(filePath, basename(filePath))
 
-    # send the filename and filesize
+    # send the filename and the size of the zip that is actually sent
+    filesize = os.path.getsize("send.zip")
     s.send(f"{filename}{SEPARATOR}{filesize}".encode())
 
     # start sending the file
